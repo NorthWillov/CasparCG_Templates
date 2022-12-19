@@ -5,11 +5,11 @@ const _graphic = (function () {
     let activeStep = 0;     // activeStep - the title currently being show
     let currentStep = 0;    // currentStep - track which title is going to be shown after all the animations play out
     let data = [];          // data - array of titles and subtitles
-    let style = {
-        primaryColor: "lightblue",
-        textColor: "black",
-        position: "center"
-    };              // style - contains the primary color and text color data
+    // let style = {
+    //     primaryColor: "lightblue",
+    //     textColor: "black",
+    //     position: "center"
+    // };              // style - contains the primary color and text color data
 
     (function () {
         // Runs after the rest of the parent function parses
@@ -21,60 +21,58 @@ const _graphic = (function () {
     })();
 
     function applyData() {
-        const graphic = document.querySelector('.lt-style-one .graphic');
-        const title = graphic.querySelector('h1');
-        const subtitle = graphic.querySelector('p');
+        const twitter = document.querySelector('.twitter');
 
-        title.textContent = data[activeStep].title;
-        subtitle.textContent = data[activeStep].subtitle;
+
+        twitter.textContent = data[activeStep].twitter;
     }
 
-    function applyStyle() {
-        const container = document.querySelector('.lt-style-one');
-        const graphic = container.querySelector('.graphic');
-        const [pathLeft, pathRight] = graphic.querySelectorAll('svg path');
-        const title = graphic.querySelector('h1');
-        const subtitle = graphic.querySelector('.subtitle');
+    // function applyStyle() {
+    //     const container = document.querySelector('.lt-style-one');
+    //     const graphic = container.querySelector('.graphic');
+    //     const [pathLeft, pathRight] = graphic.querySelectorAll('svg path');
+    //     const title = graphic.querySelector('h1');
+    //     const subtitle = graphic.querySelector('.subtitle');
 
-        // Set the elements CSS styles
-        pathLeft.style.stroke = style.primaryColor;
-        pathRight.style.stroke = style.primaryColor;
-        title.style.color = style.textColor;
-        subtitle.style.color = style.textColor;
-        subtitle.style.backgroundColor = style.primaryColor;
+    //     // Set the elements CSS styles
+    //     pathLeft.style.stroke = style.primaryColor;
+    //     pathRight.style.stroke = style.primaryColor;
+    //     title.style.color = style.textColor;
+    //     subtitle.style.color = style.textColor;
+    //     subtitle.style.backgroundColor = style.primaryColor;
 
-        // Position the graphic on screen
-        switch (style.position) {
-            case 'left':
-                container.style.marginRight = 'auto';
-                break;
-            case 'center':
-                container.style.margin = '4vh auto';
-                break;
-            default:
-                container.style.marginLeft = 'auto';
-                break;
-        }
-    }
+    //     // Position the graphic on screen
+    //     switch (style.position) {
+    //         case 'left':
+    //             container.style.marginRight = 'auto';
+    //             break;
+    //         case 'center':
+    //             container.style.margin = '4vh auto';
+    //             break;
+    //         default:
+    //             container.style.marginLeft = 'auto';
+    //             break;
+    //     }
+    // }
 
-    function getComputedStyle(elem, styles) {
-        // Get the element's computed styles
-        const computedStyles = window.getComputedStyle(elem);
-        // Create an array to hold the requested results
-        const values = [];
-        if (Array.isArray(styles)) {
-            // Loop over each style requested and all the value to the result
-            styles.forEach(s =>
-                values.push(computedStyles.getPropertyValue(s)));
-        } else {
-            values.push(computedStyles.getPropertyValue(styles));
-        }
-        return values.map(v => {
-            // Clean up pixel values
-            if (v.includes('px')) v = Number(v.substring(0, v.length - 2));
-            return v;
-        });
-    }
+    // function getComputedStyle(elem, styles) {
+    //     // Get the element's computed styles
+    //     const computedStyles = window.getComputedStyle(elem);
+    //     // Create an array to hold the requested results
+    //     const values = [];
+    //     if (Array.isArray(styles)) {
+    //         // Loop over each style requested and all the value to the result
+    //         styles.forEach(s =>
+    //             values.push(computedStyles.getPropertyValue(s)));
+    //     } else {
+    //         values.push(computedStyles.getPropertyValue(styles));
+    //     }
+    //     return values.map(v => {
+    //         // Clean up pixel values
+    //         if (v.includes('px')) v = Number(v.substring(0, v.length - 2));
+    //         return v;
+    //     });
+    // }
 
     function update(raw) {
         let parsed;
@@ -94,7 +92,7 @@ const _graphic = (function () {
         Array.isArray(parsed.data) // Save the text data
             ? data = data.concat(parsed.data)
             : data.push(parsed.data);
-        style = parsed.style; // Save the style data
+        // style = parsed.style; // Save the style data
 
         if (state === 0) {
             try {
@@ -109,35 +107,8 @@ const _graphic = (function () {
     }
 
     function animateIn() {
-        const graphic = document.querySelector('.lt-style-one .graphic');
-        const [pathLeft, pathRight] = graphic.querySelectorAll('svg path');
-        const title = graphic.querySelector('h1');
-        const subtitleCon = graphic.querySelector('.subtitle');
-        const subtitle = subtitleCon.querySelector('p');
-
-        const graphicWidth = getComputedStyle(graphic, 'width')[0];
-        // Our path wraps around our graphic making 
-        // it's path width about twice as big
-        const pathWidth = graphicWidth * 2;
-
-        const tl = new gsap.timeline({ duration: 1, ease: 'power1.out' });
-        tl.set([pathLeft, pathRight], {
-            strokeDashoffset: pathWidth,
-            strokeDasharray: pathWidth
-        }).set(title, { y: '15vh' })
-            .set(subtitleCon, { y: '10vh' })
-            .set(subtitle, { y: '20vh' })
-            // Reveal the graphic
-            .set(graphic, { opacity: 1 })
-            // Animation Begins
-            .to([pathLeft, pathRight], {
-                strokeDashoffset: 0,
-                duration: 1.5 // Overides the default duration
-            }).to(title, { y: 0 }, '-=1')
-            .to(subtitleCon, { y: 0 }, '-=.9')
-            .to(subtitle, { y: 0 }, '-=1');
-
-            setTimeout(() => { stop() },4000)
+        const tl = new gsap.timeline({ duration: 0, ease: 'power1.out' });
+        tl.set(".element", { x: "-100%" }).set(".element", { opacity: 1 }).to(".element", { x: 0 })
     }
 
     function play() {
@@ -151,24 +122,8 @@ const _graphic = (function () {
 
     function animateOut() {
         /* The same vas the animateIn function */
-        const graphic = document.querySelector('.lt-style-one .graphic');
-        const [pathLeft, pathRight] = graphic.querySelectorAll('svg path');
-        const title = graphic.querySelector('h1');
-        const subtitleCon = graphic.querySelector('.subtitle');
-        const subtitle = subtitleCon.querySelector('p');
-        const titleWidgth = getComputedStyle(graphic, 'width')[0];
-        const pathLength = titleWidgth * 2;
-
-        const tl = new gsap.timeline({ duration: 1, ease: 'power1.in' });
-        tl.to(title, { y: '15vh' })
-            .to(subtitleCon, { y: '10vh' }, '-=.75')
-            .to(subtitle, { y: '20vh' }, '-=.55')
-            .to([pathLeft, pathRight], {
-                strokeDashoffset: pathLength,
-                ease: 'power1.inOut',
-                duration: 2
-            }, '-=1')
-            .to(graphic, { opacity: 0 }, '-=.25');
+        const tl = new gsap.timeline({ duration: 0, ease: 'power1.out' });
+        tl.set(".element", { x: 0 }).to(".element", { x: "-120%" })
     }
 
     function stop() {// State 2 means graphic is played and ready to be stopped

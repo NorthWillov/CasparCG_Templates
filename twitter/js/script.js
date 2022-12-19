@@ -122,7 +122,7 @@ const _graphic = (function () {
 
     function animateOut() {
         /* The same vas the animateIn function */
-        const tl = new gsap.timeline({ duration: 0, ease: 'power1.out' });
+        const tl = new gsap.timeline({ duration: 0, ease: 'power2.out' });
         tl.set(".element", { x: 0 }).to(".element", { x: "-120%" })
     }
 

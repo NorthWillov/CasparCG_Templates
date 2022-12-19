@@ -9,10 +9,11 @@ body {
   align-items: flex-end;
 }
 
-main {
+.element {
   display: flex;
   align-items: center;
   margin-bottom: 200px;
+  margin-left: 50px;
 }
 
 .circle {
@@ -29,10 +30,10 @@ main {
 }
 
 .account_info_line {
-  width: 500px;
+  min-width: 500px;
   height: 70px;
   background-color: #03A9F4;
-  margin-left: 40px;
+  margin-left: 160px;
   text-align: right;
   vertical-align: middle;
   line-height: 70px;
@@ -52,6 +53,7 @@ main {
   font-size: 38px;
   margin: 0;
   margin-right: 10px;
+  padding-left: 20px;
 }
 
 /*# sourceMappingURL=styles.css.map */
